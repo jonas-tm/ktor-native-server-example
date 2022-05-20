@@ -1,0 +1,10 @@
+.idea
+*.iml
+build
+build/**
+target
+.gradle
+local.properties
+*.lock
+/app/snippets-api
+/gradle/wrapper/gradle-wrapper.jar
