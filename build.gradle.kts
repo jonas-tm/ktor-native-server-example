@@ -1,15 +1,16 @@
-val ktor_version: String by project
-val kotlin_version: String by project
+val ktor_version by extra { "2.0.2" }
+val kotlin_version by extra { "1.7.0" }
 
 plugins {
-    application
-    kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.6.21"
+    kotlin("multiplatform") version "1.7.0"
+    kotlin("plugin.serialization") version "1.7.0"
 }
+
+group = "me.jonastm"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
 }
 
 kotlin {
@@ -17,7 +18,7 @@ kotlin {
     val nativeTarget = when {
         hostOs == "Mac OS X" -> macosX64("native")
         hostOs == "Linux" -> linuxX64("native")
-        // Other supported targets are listed here: https://ktor.io/docs/native-server.html#targets
+        //hostOs.startsWith("Windows") -> mingwX64("native") // Not yet supported by kotlin/native ktor
         else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
     }
 
@@ -41,10 +42,7 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
             }
         }
-        val nativeTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
+
+        val nativeTest by getting
     }
 }
