@@ -43,6 +43,11 @@ kotlin {
             }
         }
 
-        val nativeTest by getting
+        val nativeTest by getting {
+            dependencies {
+                implementation("io.ktor:ktor-server-test-host:$ktor_version")
+                implementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
+            }
+        }
     }
 }

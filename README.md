@@ -20,3 +20,6 @@ Currently, development experience is not very good. The program has to be starte
 1. Build the program `./gradlew  :build`
 2. Execute program by hand via `./build/bin/native/debugExecutable/ktor-native-server-example.kexe` (alternatively `releaseExecutable`)
 3. Server should now be running under https://localhost:8080
+
+## Planned Features
+- Database connection via Exposed [once supported](https://github.com/JetBrains/Exposed/blob/master/docs/ROADMAP.md)

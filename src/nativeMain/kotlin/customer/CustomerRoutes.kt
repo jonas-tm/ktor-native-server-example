@@ -33,7 +33,7 @@ private suspend fun getCustomerById(call: ApplicationCall) {
         call.respondText("Missing path parameter customer id")
         return
     }
-    var id: Int
+    val id: Int
     try {
         id = idSt.toInt()
     } catch (e: NumberFormatException) {
