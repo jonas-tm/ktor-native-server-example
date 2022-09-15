@@ -17,8 +17,15 @@ More general information can be found here: https://ktor.io/docs/native-server.h
 ## How to run
 Currently, development experience is not very good. The program has to be started by hand.
 
-1. Execute `./gradlew runDebugExecutable`
-2. (Mac) Kill process with `kill $(pgrep ktor-native-server-example)`
+1. Debug `./gradlew runDebugExecutable`
+2. Tests `./gradlew allTests`
+
+## Known Problems
+- On MacOS server is not always stopped after Gradle debug task stopped
+  - Kill process with `kill $(pgrep $(./gradlew projectName -q))`
+- Problems with tests in IntelliJ: _Cannot access class 'io.ktor...'. Check your module classpath for missing or conflicting dependencies_
+  - [Open bug](https://youtrack.jetbrains.com/issue/KT-52216/HMPP-KTOR-False-positive-TYPEMISMATCH-with-Throwable-descendant#focus=Comments-27-6032809.0-0) can be overcome by adding following to `gradle.properties`
+    - ```kotlin.mpp.hierarchicalStructureSupport=false```
 
 ## Planned Features
 - Database connection via Exposed [once supported](https://github.com/JetBrains/Exposed/blob/master/docs/ROADMAP.md)

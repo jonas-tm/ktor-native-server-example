@@ -18,6 +18,10 @@ repositories {
     mavenCentral()
 }
 
+task<DefaultTask>("projectName") {
+    println(project.name)
+}
+
 kotlin {
     val os = ManagementFactory.getOperatingSystemMXBean()
     val isArm = os.arch == "aarch64"
@@ -38,7 +42,7 @@ kotlin {
     nativeTarget.apply {
         binaries {
             executable {
-                entryPoint = "main"
+                entryPoint = "de.tonndorf_martini.jonas.main"
             }
         }
     }
@@ -59,6 +63,7 @@ kotlin {
         val nativeTest by getting {
             dependencies {
                 implementation("io.ktor:ktor-server-test-host:$ktor_version")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
                 implementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
             }
         }

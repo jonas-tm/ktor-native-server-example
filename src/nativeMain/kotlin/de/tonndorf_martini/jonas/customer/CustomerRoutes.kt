@@ -1,4 +1,4 @@
-package routes.customer
+package de.tonndorf_martini.jonas.customer
 
 import io.ktor.http.*
 import io.ktor.server.application.*
