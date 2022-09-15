@@ -12,4 +12,5 @@ fun Application.configureSerialization() {
             isLenient = true
         })
     }
+    log.info("Registered json serialization")
 }

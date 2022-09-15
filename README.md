@@ -11,15 +11,14 @@ The ktor server is running with CIO Engine (Coroutine-based I/O) which is the on
 More general information can be found here: https://ktor.io/docs/native-server.html
 
 ## Supported Platforms
-- Linux
-- MacOS
+- Linux (x64, Arm64)
+- MacOS (x64, Arm64)
 
 ## How to run
 Currently, development experience is not very good. The program has to be started by hand.
 
-1. Build the program `./gradlew  :build`
-2. Execute program by hand via `./build/bin/native/debugExecutable/ktor-native-server-example.kexe` (alternatively `releaseExecutable`)
-3. Server should now be running under https://localhost:8080
+1. Execute `./gradlew runDebugExecutable`
+2. (Mac) Kill process with `kill $(pgrep ktor-native-server-example)`
 
 ## Planned Features
 - Database connection via Exposed [once supported](https://github.com/JetBrains/Exposed/blob/master/docs/ROADMAP.md)

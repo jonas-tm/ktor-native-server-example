@@ -16,4 +16,5 @@ fun Application.configureRouting() {
         }
         customerRoutes()
     }
+    log.info("Registered routing")
 }

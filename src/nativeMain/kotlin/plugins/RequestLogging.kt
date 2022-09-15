@@ -13,6 +13,7 @@ val TIME_KEY = AttributeKey<Instant>("call_time")
 
 fun Application.configureRequestLogging() {
     install(RequestLoggingPlugin)
+    log.info("Registered logging plugin")
 }
 
 val RequestLoggingPlugin = createApplicationPlugin(name = "RequestLoggingPlugin") {
