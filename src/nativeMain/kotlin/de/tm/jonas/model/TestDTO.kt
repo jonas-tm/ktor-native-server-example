@@ -1,4 +1,4 @@
-package de.tonndorf_martini.jonas.model
+package de.tm.jonas.model
 
 import kotlinx.serialization.Serializable
 

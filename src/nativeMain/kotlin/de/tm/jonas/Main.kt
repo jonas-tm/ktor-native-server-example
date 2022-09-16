@@ -1,8 +1,8 @@
-package de.tonndorf_martini.jonas
+package de.tm.jonas
 
-import de.tonndorf_martini.jonas.plugins.configureRequestLogging
-import de.tonndorf_martini.jonas.plugins.configureRouting
-import de.tonndorf_martini.jonas.plugins.configureSerialization
+import de.tm.jonas.plugins.configureRequestLogging
+import de.tm.jonas.plugins.configureRouting
+import de.tm.jonas.plugins.configureSerialization
 import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 

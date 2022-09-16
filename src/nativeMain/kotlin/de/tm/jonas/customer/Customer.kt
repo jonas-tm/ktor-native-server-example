@@ -1,4 +1,4 @@
-package de.tonndorf_martini.jonas.customer
+package de.tm.jonas.customer
 
 import kotlinx.serialization.Serializable
 

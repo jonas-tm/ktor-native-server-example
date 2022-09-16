@@ -42,7 +42,7 @@ kotlin {
     nativeTarget.apply {
         binaries {
             executable {
-                entryPoint = "de.tonndorf_martini.jonas.main"
+                entryPoint = "de.tm.jonas.main"
             }
         }
     }

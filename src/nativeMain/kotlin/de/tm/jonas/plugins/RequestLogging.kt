@@ -1,4 +1,4 @@
-package de.tonndorf_martini.jonas.plugins
+package de.tm.jonas.plugins
 
 import io.ktor.server.application.*
 import io.ktor.server.application.hooks.*

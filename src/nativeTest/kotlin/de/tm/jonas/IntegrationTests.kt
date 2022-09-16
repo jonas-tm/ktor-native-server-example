@@ -1,6 +1,6 @@
-package de.tonndorf_martini.jonas
+package de.tm.jonas
 
-import de.tonndorf_martini.jonas.model.TestDTO
+import de.tm.jonas.model.TestDTO
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.HttpStatusCode
@@ -10,9 +10,9 @@ import io.ktor.client.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import de.tonndorf_martini.jonas.plugins.configureRequestLogging
-import de.tonndorf_martini.jonas.plugins.configureRouting
-import de.tonndorf_martini.jonas.plugins.configureSerialization
+import de.tm.jonas.plugins.configureRequestLogging
+import de.tm.jonas.plugins.configureRouting
+import de.tm.jonas.plugins.configureSerialization
 import io.ktor.client.call.*
 
 class IntegrationTests {
