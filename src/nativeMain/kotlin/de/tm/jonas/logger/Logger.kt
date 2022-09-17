@@ -7,3 +7,14 @@ val JSON = Json {
     isLenient = true
     prettyPrint = true
 }
+
+interface LoggingContext {
+    fun log(msg: String)
+}
+
+class BasicLogging() : LoggingContext {
+
+    override fun log(msg: String) {
+        println(msg)
+    }
+}

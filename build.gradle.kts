@@ -1,4 +1,6 @@
 import java.lang.management.ManagementFactory
+import org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile
+import kotlin.collections.List
 
 val ktor_version = "2.1.1"
 val kotlin_version = "1.7.10" // When updating also update kotlin plugins version
@@ -23,11 +25,11 @@ task<DefaultTask>("projectName") {
 }
 
 // Enable context-receivers (not working)
-//tasks.withType<KotlinCompile>().all {
-//    kotlinOptions {
-//        freeCompilerArgs = listOf("-Xcontext-receivers")
-//    }
-//}
+tasks.withType<KotlinNativeCompile>().configureEach {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xcontext-receivers")
+    }
+}
 
 kotlin {
     val os = ManagementFactory.getOperatingSystemMXBean()
@@ -35,7 +37,6 @@ kotlin {
     val isMacOS = os.name == "Mac OS X"
     val isLinux = os.name == "Linux"
     val nativeTarget = when {
-
         isMacOS && isArm -> macosArm64("native")
         isMacOS-> macosX64("native")
 
