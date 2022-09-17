@@ -1,9 +1,9 @@
 import java.lang.management.ManagementFactory
 
-val ktor_version by extra { "2.1.1" }
-val kotlin_version by extra { "1.7.10" }
-
-val kotlin_datetime by extra { "0.4.0" }
+val ktor_version = "2.1.1"
+val kotlin_version = "1.7.10" // When updating also update kotlin plugins version
+val kotlin_coroutine = "1.6.4"
+val kotlin_datetime = "0.4.0"
 
 
 plugins {
@@ -21,6 +21,13 @@ repositories {
 task<DefaultTask>("projectName") {
     println(project.name)
 }
+
+// Enable context-receivers (not working)
+//tasks.withType<KotlinCompile>().all {
+//    kotlinOptions {
+//        freeCompilerArgs = listOf("-Xcontext-receivers")
+//    }
+//}
 
 kotlin {
     val os = ManagementFactory.getOperatingSystemMXBean()
@@ -54,6 +61,8 @@ kotlin {
 
                 implementation("io.ktor:ktor-server-core:$ktor_version")
                 implementation("io.ktor:ktor-server-cio:$ktor_version")
+
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine")
 
                 implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")

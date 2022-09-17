@@ -1,30 +1,46 @@
 package de.tm.jonas.plugins
 
+import de.tm.jonas.logger.JSON
 import io.ktor.server.application.*
 import io.ktor.server.application.hooks.*
 import io.ktor.server.request.*
 import io.ktor.util.*
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.*
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
 
 val TIME_KEY = AttributeKey<Instant>("call_time")
 
 fun Application.configureRequestLogging() {
-    install(RequestLoggingPlugin)
+    install(createRequestLoggingPlugin())
     log.info("Registered logging plugin")
 }
 
-val RequestLoggingPlugin = createApplicationPlugin(name = "RequestLoggingPlugin") {
+@Serializable
+private data class Request(val method: String, val uri: String, val status: Int, val duration: Long, val httpVersion: String, val time: LocalDateTime)
+
+private fun createRequestLoggingPlugin() = createApplicationPlugin(name = "RequestLoggingPlugin") {
     on(ResponseSent) { call ->
-        val startTime = call.attributes[TIME_KEY]
-        val duration = Clock.System.now().minus(startTime).inWholeMilliseconds
-        val timeReq = startTime.toLocalDateTime(TimeZone.UTC)
+        with(call) {
+            val startTime = attributes[TIME_KEY]
+            val duration = Clock.System.now().minus(startTime).inWholeMilliseconds
+            val timeReq = startTime.toLocalDateTime(TimeZone.UTC)
+            val status = response.status()?.value ?: -1
 
-        val status = call.response.status()?.value ?: -1
+            val logMsg = JSON.encodeToString(Request(
+                request.httpMethod.value,
+                request.uri,
+                status,
+                duration,
+                request.httpVersion,
+                timeReq,
+            ))
 
-        application.log.info("[${call.request.httpMethod.value}] Request handled --> [uri]: ${call.request.uri}, [status]: $status, [duration]: ${duration}ms, [http]: ${call.request.httpVersion}, [time]: $timeReq")
+            when {
+                status >= 400 -> application.log.error(logMsg)
+                else -> application.log.info(logMsg)
+            }
+        }
     }
 
     on(CallSetup) { call ->

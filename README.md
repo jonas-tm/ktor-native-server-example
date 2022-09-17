@@ -5,7 +5,7 @@ This repository contains a sample ktor 2.0 server program that runs only with Ko
 The server includes the following functionalities:
 - Sample REST API with KotlinX JSON Serialization
 - Sample Application Plugin (Middleware) for request logging
-- Uses the experimental new memory model of Kotlin/Native (can be disabled in the `gradle.properties`).
+- Coroutine support and sample endpoint
 
 The ktor server is running with CIO Engine (Coroutine-based I/O) which is the only on supported by Kotlin/Native (Netty, Jetty and Tomcat are JVM based).
 More general information can be found here: https://ktor.io/docs/native-server.html
