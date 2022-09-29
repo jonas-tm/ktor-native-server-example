@@ -9,6 +9,7 @@ import io.ktor.server.response.*
 fun Application.configureErrorHandling() {
     install(StatusPages) {
         exception<Throwable> { call, throwable ->
+            call.application.log.error("call error", throwable)
             call.respond(HttpStatusCode.InternalServerError, ErrorDTO("Internal server error"))
         }
     }

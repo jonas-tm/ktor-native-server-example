@@ -5,7 +5,6 @@ val kotlin_version = "1.7.10" // When updating also update kotlin plugins versio
 val kotlin_coroutine = "1.6.4"
 val kotlin_datetime = "0.4.0"
 
-
 plugins {
     kotlin("multiplatform") version "1.7.10"
     kotlin("plugin.serialization") version "1.7.10"
@@ -67,6 +66,7 @@ kotlin {
                 implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
                 implementation("io.ktor:ktor-server-status-pages:$ktor_version")
+                implementation("io.ktor:ktor-server-call-id:$ktor_version")
             }
         }
 

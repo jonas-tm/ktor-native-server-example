@@ -1,9 +1,6 @@
 package de.tm.jonas
 
-import de.tm.jonas.plugins.configureErrorHandling
-import de.tm.jonas.plugins.configureRequestLogging
-import de.tm.jonas.plugins.configureRouting
-import de.tm.jonas.plugins.configureSerialization
+import de.tm.jonas.plugins.*
 import io.ktor.server.application.*
 import io.ktor.server.cio.*
 import io.ktor.server.engine.*
@@ -15,6 +12,7 @@ fun main() {
 }
 
 fun Application.setupServer() {
+    configureCallID()
     configureErrorHandling()
     configureSerialization()
     configureRequestLogging()
