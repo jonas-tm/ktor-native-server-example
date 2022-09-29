@@ -19,9 +19,7 @@ class IntegrationTests {
 
     fun testServer(f: suspend (HttpClient) -> Unit) = testApplication {
         application {
-            configureSerialization()
-            configureRequestLogging()
-            configureRouting()
+            setupServer()
         }
 
         val client = createClient {

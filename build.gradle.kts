@@ -66,6 +66,7 @@ kotlin {
 
                 implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+                implementation("io.ktor:ktor-server-status-pages:$ktor_version")
             }
         }
 

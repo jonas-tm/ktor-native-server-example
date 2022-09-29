@@ -4,6 +4,7 @@ This repository contains a sample ktor 2.0 server program that runs only with Ko
 
 The server includes the following functionalities:
 - Sample REST API with KotlinX JSON Serialization
+- Global error handling middleware
 - Sample Application Plugin (Middleware) for request logging
 - Coroutine support and sample endpoint
 
