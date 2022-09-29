@@ -12,6 +12,11 @@ fun Application.configureCallID() {
         retrieveFromHeader(REQUEST_ID_HEADER)
         generate(24, "0123456789") //fallback if not existent
 
+        // Configure minimal verification
+        verify {
+            it.isNotEmpty()
+        }
+
         // Respond
         replyToHeader(REQUEST_ID_HEADER)
     }
