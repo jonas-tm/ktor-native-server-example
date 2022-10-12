@@ -1,19 +1,25 @@
 import java.lang.management.ManagementFactory
 
-val ktor_version = "2.1.1"
-val kotlin_version = "1.7.10" // When updating also update kotlin plugins version
+val ktor_version = "2.1.2"
+val kotlin_version = "1.7.20" // When updating also update kotlin plugins version
 val kotlin_coroutine = "1.6.4"
 val kotlin_datetime = "0.4.0"
 
+val sqldelight_postgres_native_version = "0.0.2"
+val sqldelight_version = "1.5.4"
+
 plugins {
-    kotlin("multiplatform") version "1.7.10"
-    kotlin("plugin.serialization") version "1.7.10"
+    kotlin("multiplatform") version "1.7.20"
+    kotlin("plugin.serialization") version "1.7.20"
+
+    id("app.cash.sqldelight") version "2.0.0-alpha04"
 }
 
 group = "me.jonastm"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    google()
     mavenCentral()
 }
 
@@ -28,6 +34,21 @@ task<DefaultTask>("projectName") {
 //    }
 //}
 
+//kotlin.targets.withType<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget> {
+//    binaries.all {
+//        freeCompilerArgs += "-Xdisable-phases=EscapeAnalysis"
+//    }
+//}
+
+sqldelight {
+    database("NativePostgres") {
+        dialect("app.softwork:postgres-native-sqldelight-dialect:$sqldelight_postgres_native_version")
+        packageName = "de.tm.jonas.data"
+        deriveSchemaFromMigrations = true
+    }
+    linkSqlite = false
+}
+
 kotlin {
     val os = ManagementFactory.getOperatingSystemMXBean()
     val isArm = os.arch == "aarch64"
@@ -36,7 +57,7 @@ kotlin {
     val nativeTarget = when {
 
         isMacOS && isArm -> macosArm64("native")
-        isMacOS-> macosX64("native")
+        isMacOS -> macosX64("native")
 
         isLinux && isArm -> linuxArm64("native")
         isLinux -> linuxX64("native")
@@ -53,6 +74,12 @@ kotlin {
         }
     }
     sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("app.softwork:postgres-native-sqldelight-driver:$sqldelight_postgres_native_version")
+            }
+        }
+
         val nativeMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
