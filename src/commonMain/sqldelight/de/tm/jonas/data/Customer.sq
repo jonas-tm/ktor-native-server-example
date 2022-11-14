@@ -1,5 +1,0 @@
-create:
-INSERT INTO customer VALUES (?, ?);
-
-getall:
-SELECT * FROM customer;

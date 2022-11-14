@@ -1,0 +1,19 @@
+CREATE TABLE IF NOT EXISTS news(
+    id BIGSERIAL PRIMARY KEY,
+    title text NOT NULL,
+    text text NOT NULL
+);
+
+insertAndGetId:
+INSERT INTO news(title, text)
+VALUES (?, ?)
+RETURNING id;
+
+selectById:
+SELECT id, title, text
+FROM news
+WHERE id = :id;
+
+findAll:
+SELECT id, title, text
+FROM news;
