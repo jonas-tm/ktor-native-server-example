@@ -1,4 +1,4 @@
-package de.tm.jonas.plugins
+package com.jonastm.adapter.http.plugins
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -10,6 +10,7 @@ fun Application.configureSerialization() {
         json(Json {
             prettyPrint = true
             isLenient = true
+            ignoreUnknownKeys = true
         })
     }
     log.info("Registered json serialization")

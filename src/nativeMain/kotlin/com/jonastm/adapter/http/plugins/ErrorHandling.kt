@@ -1,16 +1,17 @@
-package de.tm.jonas.plugins
+package com.jonastm.adapter.http.plugins
 
-import de.tm.jonas.model.ErrorDTO
+import com.jonastm.adapter.http.model.InternalError
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.response.*
 
+
 fun Application.configureErrorHandling() {
     install(StatusPages) {
         exception<Throwable> { call, throwable ->
             call.application.log.error("call error", throwable)
-            call.respond(HttpStatusCode.InternalServerError, ErrorDTO("Internal server error"))
+            call.respond(HttpStatusCode.InternalServerError, InternalError())
         }
     }
 }

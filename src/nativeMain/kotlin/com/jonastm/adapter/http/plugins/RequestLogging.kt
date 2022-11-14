@@ -1,6 +1,5 @@
-package de.tm.jonas.plugins
+package com.jonastm.adapter.http.plugins
 
-import de.tm.jonas.logger.JSON
 import io.ktor.server.application.*
 import io.ktor.server.application.hooks.*
 import io.ktor.server.plugins.callid.*
@@ -9,12 +8,19 @@ import io.ktor.util.*
 import kotlinx.datetime.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 val TIME_KEY = AttributeKey<Instant>("call_time")
 
 fun Application.configureRequestLogging() {
     install(createRequestLoggingPlugin())
     log.info("Registered logging plugin")
+}
+
+val JSON = Json {
+    allowStructuredMapKeys = true
+    isLenient = true
+    prettyPrint = true
 }
 
 @Serializable
@@ -28,7 +34,8 @@ private fun createRequestLoggingPlugin() = createApplicationPlugin(name = "Reque
             val timeReq = startTime.toLocalDateTime(TimeZone.UTC)
             val status = response.status()?.value ?: -1
 
-            val logMsg = JSON.encodeToString(Request(
+            val logMsg = JSON.encodeToString(
+                Request(
                 requestID = call.callId,
                 method = request.httpMethod.value,
                 uri = request.uri,
@@ -36,7 +43,8 @@ private fun createRequestLoggingPlugin() = createApplicationPlugin(name = "Reque
                 duration = duration,
                 httpVersion = request.httpVersion,
                 time = timeReq,
-            ))
+            )
+            )
 
             when {
                 status >= 400 -> application.log.error(logMsg)

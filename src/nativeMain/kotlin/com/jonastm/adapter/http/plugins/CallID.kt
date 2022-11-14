@@ -1,4 +1,4 @@
-package de.tm.jonas.plugins
+package com.jonastm.adapter.http.plugins
 
 import io.ktor.http.*
 import io.ktor.server.application.*
