@@ -1,6 +1,6 @@
 package com.jonastm.adapter.http.plugins
 
-import com.jonastm.adapter.http.model.InternalError
+import com.jonastm.adapter.http.model.internalError
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.statuspages.*
@@ -11,7 +11,7 @@ fun Application.configureErrorHandling() {
     install(StatusPages) {
         exception<Throwable> { call, throwable ->
             call.application.log.error("call error", throwable)
-            call.respond(HttpStatusCode.InternalServerError, InternalError())
+            call.respond(HttpStatusCode.InternalServerError, internalError())
         }
     }
 }

@@ -1,8 +1,8 @@
 package com.jonastm.adapter.http.api
 
 
-import com.jonastm.adapter.http.model.InvalidBodyError
-import com.jonastm.adapter.http.model.NotFoundError
+import com.jonastm.adapter.http.model.invalidBodyError
+import com.jonastm.adapter.http.model.notFoundError
 import com.jonastm.adapter.http.model.parseNews
 import com.jonastm.adapter.http.model.toResponse
 import com.jonastm.service.NewsService
@@ -26,14 +26,14 @@ fun Route.newsRoutes(newsService: NewsService) {
                 newsService.getNewsEntry(newsID)?.let { newsDTO ->
                     call.respond(newsDTO.toResponse())
                 } ?: kotlin.run {
-                    call.respond(HttpStatusCode.NotFound, NotFoundError())
+                    call.respond(HttpStatusCode.NotFound, notFoundError())
                 }
             }
         }
         post {
             val result = call.request.parseNews()
             result.onFailure {
-                call.respond(HttpStatusCode.BadRequest, InvalidBodyError())
+                call.respond(HttpStatusCode.BadRequest, invalidBodyError())
             }
             result.onSuccess {
                 val savedEntry = newsService.addNewsEntry(it)

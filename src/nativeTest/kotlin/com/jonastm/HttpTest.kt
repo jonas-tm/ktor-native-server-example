@@ -2,8 +2,8 @@ package com.jonastm
 
 import com.jonastm.adapter.http.api.apiRoutes
 import com.jonastm.adapter.http.configure
-import com.jonastm.adapter.http.model.InternalError
 import com.jonastm.adapter.http.model.News
+import com.jonastm.adapter.http.model.internalError
 import com.jonastm.adapter.http.plugins.REQUEST_ID_HEADER
 import com.jonastm.dto.NewsDTO
 import com.jonastm.service.NewsService
@@ -66,7 +66,7 @@ class HttpTest {
     fun `GET all news err`() = testServer(ErrorServiceMock()) {
         it.get("/api/v1/news").apply {
             assertEquals(HttpStatusCode.InternalServerError, status)
-            assertEquals(InternalError(), body())
+            assertEquals(internalError(), body())
             assertNotNull(headers[REQUEST_ID_HEADER])
         }
     }
@@ -78,7 +78,7 @@ class HttpTest {
             header(REQUEST_ID_HEADER, id)
         }.apply {
             assertEquals(HttpStatusCode.InternalServerError, status)
-            assertEquals(InternalError(), body())
+            assertEquals(internalError(), body())
             assertEquals(id, headers[REQUEST_ID_HEADER])
         }
     }
@@ -96,7 +96,7 @@ class HttpTest {
     fun `GET specific news error`() = testServer(ErrorServiceMock()) {
         it.get("/api/v1/news/1").apply {
             assertEquals(HttpStatusCode.InternalServerError, status)
-            assertEquals(InternalError(), body())
+            assertEquals(internalError(), body())
             assertNotNull(headers[REQUEST_ID_HEADER])
         }
     }
@@ -120,7 +120,7 @@ class HttpTest {
             setBody(defaultEntry)
         }.apply {
             assertEquals(HttpStatusCode.InternalServerError, status)
-            assertEquals(InternalError(), body())
+            assertEquals(internalError(), body())
             assertNotNull(headers[REQUEST_ID_HEADER])
         }
     }
