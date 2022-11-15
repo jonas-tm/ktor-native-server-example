@@ -1,5 +1,4 @@
 val ktor_version = "2.1.3"
-val kotlin_version = "1.7.21" // When updating also update kotlin plugins version
 val psql_driver_version = "0.0.4"
 val kotlin_coroutine = "1.6.4"
 val kotlinx_serialization_version = "1.4.0"
@@ -44,28 +43,28 @@ kotlin {
         }
     }
 
-    sourceSets {
-        val commonMain by getting {
-            // SQLDelight ORM will be generated here
+    sourceSets { 
+        commonMain {
+            dependencies {
+                implementation("app.softwork:postgres-native-sqldelight-driver:$psql_driver_version")
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation(kotlin("test"))
+            }
         }
         val nativeMain by getting {
             dependencies {
-                implementation("io.ktor:ktor-server-core:$ktor_version")
                 implementation("io.ktor:ktor-server-cio:$ktor_version")
 
-                implementation("app.softwork:postgres-native-sqldelight-driver:$psql_driver_version")
-                implementation("com.squareup.sqldelight:coroutines-extensions:1.5.3")
+                implementation("app.cash.sqldelight:coroutines-extensions:2.0.0-alpha04")
 
-                implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutine")
 
                 // Fix to sync kotlinx serialization version
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinx_serialization_version") {
-                    version { strictly(kotlinx_serialization_version) }
-                }
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version") {
-                    version { strictly(kotlinx_serialization_version) }
-                }
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinx_serialization_version")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version")
 
                 implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
@@ -77,7 +76,6 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-server-test-host:$ktor_version")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
-                implementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
             }
         }
     }
