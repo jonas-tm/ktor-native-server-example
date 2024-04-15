@@ -24,6 +24,7 @@ More general information can be found here: https://ktor.io/docs/native-server.h
 
 1. Start Postgres instance `docker compose up`
 2. Debug `./gradlew runDebugExecutable`
+3. Visit http://localhost:8080/api/v1/news and see NewsRoutes.kt for further use of the API
 
 **Tests**:
 `./gradlew allTests`

@@ -1,12 +1,12 @@
 val ktor_version = "2.1.3"
-val kotlin_version = "1.7.21" // When updating also update kotlin plugins version
+val kotlin_version = "1.9.23" // When updating also update kotlin plugins version
 val psql_driver_version = "0.0.4"
 val kotlin_coroutine = "1.6.4"
 val kotlinx_serialization_version = "1.4.0"
 
 plugins {
-    kotlin("multiplatform") version "1.7.21"
-    kotlin("plugin.serialization") version "1.7.21"
+    kotlin("multiplatform") version "1.9.23"
+    kotlin("plugin.serialization") version "1.9.23"
 
     id("app.cash.sqldelight") version "2.0.0-alpha04"
 }

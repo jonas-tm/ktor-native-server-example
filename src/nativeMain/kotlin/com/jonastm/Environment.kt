@@ -1,5 +1,6 @@
 package com.jonastm
 
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.toKString
 import platform.posix.getenv
 
@@ -15,12 +16,12 @@ data class Env(
     val postgres: Postgres = Postgres(),
     val http: Http = Http(),
 ) {
-    data class Http(
+    data class Http @OptIn(ExperimentalForeignApi::class) constructor(
         val host: String = getenv("HOST")?.toKString() ?: "0.0.0.0",
         val port: Int = getenv("SERVER_PORT")?.toKString()?.toIntOrNull() ?: PORT,
     )
 
-    data class Postgres(
+    data class Postgres @OptIn(ExperimentalForeignApi::class) constructor(
         val host: String = getenv("POSTGRES_HOST")?.toKString() ?: POSTGRES_HOST,
         val port: Int = getenv("POSTGRES_PORT")?.toKString()?.toIntOrNull() ?: POSTGRES_PORT,
         val user: String = getenv("POSTGRES_USERNAME")?.toKString() ?: POSTGRES_USER,
